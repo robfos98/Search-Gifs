@@ -1,0 +1,10 @@
+.topic{
+    float: left;
+    background-color: lightcoral;
+    padding: 4px;
+    margin: 4px 4px;
+}
+
+br{
+    clear: left;
+}

@@ -5,6 +5,11 @@
     margin: 4px 4px;
 }
 
+.gif-box{
+    float: left;
+    padding: 4px;
+}
+
 br{
     clear: left;
 }

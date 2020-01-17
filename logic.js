@@ -1,5 +1,5 @@
 var apiKey = "Ksh96L71ifwzkL6GslsVTbpnzK3EVWe2";
-var topics = ["electricity","geometry","glassblowing","fire","undertow","absurd","cat","cats","kitty","kitties","kittens","oops i forgot kitten","kitten","storm","spiral","laminar flow"];
+var topics = ["geometry","glassblowing","fire","whirlpool","swirl","cat","cats","kitty","kitties","kittens","oops i forgot kitten","kitten","storm","spiral","laminar flow"];
 for(i in topics) {
     $("#topics").append("<div class='topic'>" + topics[i] + "</div>");
 };
@@ -16,9 +16,23 @@ $(".topic").on("click", function() {
         i = 10;
         while(i) {
             i--;
-            var gifBox = $("<div>");
-            //gifBox.append("<img src='" + response.data[i].url + "' alt='" + response.data[i].title + "'>");
-            $("#gifs").prepend("<img src='" + response.data[i].url + "'>");
+            var gifBox = $("<div class='gif-box'>");
+            var gif = $("<img alt='" + response.data[i].title + "'>");
+            $(gif).attr("still", response.data[i].images.fixed_height_still.url);
+            $(gif).attr("animate", response.data[i].images.fixed_height.url);
+            $(gif).attr("src", $(gif).attr("still"));
+
+            gifBox.append(gif);
+            $("#gifs").prepend(gifBox);
         };
     });
+});
+
+$("div").on("click", "img", function() {
+    if($(this).attr("src") === $(this).attr("still")){
+        $(this).attr("src", $(this).attr("animate"));
+    }
+    else {
+        $(this).attr("src", $(this).attr("still"));
+    }
 });

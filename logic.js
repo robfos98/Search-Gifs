@@ -1,10 +1,14 @@
 var apiKey = "Ksh96L71ifwzkL6GslsVTbpnzK3EVWe2";
 var topics = ["geometry","glassblowing","fire","whirlpool","swirl","cat","cats","kitty","kitties","kittens","oops i forgot kitten","kitten","storm","spiral","laminar flow"];
+
+function displayTopic(topic){
+    $("#topics").append("<div class='topic'>" + topic + "</div>");
+};
 for(i in topics) {
-    $("#topics").append("<div class='topic'>" + topics[i] + "</div>");
+    displayTopic(topics[i]);
 };
 
-$(".topic").on("click", function() {
+$("#topics").on("click", ".topic", function() {
     var q = $(this).text();
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=" + apiKey + "&q=" + q + "&limit=10";
     $.ajax({
@@ -23,16 +27,24 @@ $(".topic").on("click", function() {
             $(gif).attr("src", $(gif).attr("still"));
 
             gifBox.append(gif);
+            gifBox.append($("<p>").text("Rating: " + response.data[i].rating));
             $("#gifs").prepend(gifBox);
         };
     });
 });
 
-$("div").on("click", "img", function() {
+$("#gifs").on("click", "img", function() {
     if($(this).attr("src") === $(this).attr("still")){
         $(this).attr("src", $(this).attr("animate"));
     }
     else {
         $(this).attr("src", $(this).attr("still"));
-    }
+    };
+});
+
+$("#submit-topic").on("click", function(event) {
+    event.preventDefault();
+    var topic = $("#add-topic").val().trim();
+    topics.push(topic);
+    displayTopic(topic);
 });
